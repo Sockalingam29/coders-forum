@@ -24,7 +24,7 @@ function App() {
   function addQuestion(e){
     e.preventDefault();
     setqno(qno+1);
-    db.collection("4").add({
+    db.collection("5").add({
       name:name,
       time:firebase.firestore.FieldValue.serverTimestamp(),
       question:question,
@@ -39,7 +39,7 @@ function App() {
   
   
   function dispQuestion(){  
-    db.collection("4").orderBy("time", "desc").onSnapshot(function(query){
+    db.collection("5").orderBy("time", "desc").onSnapshot(function(query){
     setData(
       query.docs.map((element)=>({
         id:element.id,
@@ -100,7 +100,7 @@ function App() {
         />
       ))}
     </div>
-    <footer>Made by Sockalinam</footer>
+    
     </div>
   );
 }

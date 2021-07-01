@@ -13,21 +13,21 @@ export default function QuesTion({id,name,question,ianswer}) {
     const [Adata, setAdata] = useState(ianswer);
     
     useEffect(() => {
-      db.collection("4").doc(id).get().then((doc)=>{
+      db.collection("5").doc(id).get().then((doc)=>{
         setAdata(doc.data().answer)})
       }, [])
 
     useEffect(() => {
-      db.collection("4").doc(id).get().then((doc)=>{
+      db.collection("5").doc(id).get().then((doc)=>{
       setAdata(doc.data().answer)})
       }, [id])
 
     function addAnswer(e){
         e.preventDefault();
-        db.collection("4").doc(id).update({
+        db.collection("5").doc(id).update({
           answer:answer,
         });
-        db.collection("4").doc(id).get().then((doc)=>{
+        db.collection("5").doc(id).get().then((doc)=>{
           setAdata(doc.data().answer)}
         )
         setanswer("");
