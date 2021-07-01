@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import QuesTion from './Ques';
 import { db } from './firebase_config';
 import firebase from 'firebase';
-import './window.png'
+
 
 
 function App() {
