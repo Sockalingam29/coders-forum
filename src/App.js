@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import QuesTion from './Ques';
 import { db } from './firebase_config';
 import firebase from 'firebase';
+import './window.png'
 
 
 function App() {
@@ -56,8 +57,9 @@ function App() {
  return (
     <div className="App">
       <header>
-        <h1>tce coders' forum</h1>
-        <i class="far fa-file-code"></i>
+      <img src="https://img.icons8.com/material-rounded/48/000000/code.png"/>
+        <h1>TCE Coders' forum </h1>
+        
       </header>
     <form id="question-form" onSubmit={addQuestion}>
     <div id="divs"><TextField className="question-text"
