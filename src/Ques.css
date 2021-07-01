@@ -1,0 +1,13 @@
+
+#Ques-app{
+    margin-left:15px;
+    margin-right: 5px ;
+}
+button{
+    cursor: pointer;
+    padding:10px;
+}
+#answer-form{
+    text-align: right;
+    margin-right: 10px;
+}

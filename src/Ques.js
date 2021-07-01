@@ -1,78 +1,62 @@
 import React from 'react'
-import { TextField, Button } from '@material-ui/core';
-import { useState } from 'react';
+import { TextField } from '@material-ui/core';
+import { useState, useEffect } from 'react';
 import { db } from './firebase_config';
 import firebase from 'firebase';
 
+import './Ques.css';
 
-export default function Ques(id,name,question,time) {
-    const [Aname, setAname] = useState("");
+
+export default function QuesTion({id,name,question,ianswer}) {
+   
     const [answer, setanswer] = useState("");
-    const [Adata, setAdata] = useState([]);
-    const [ano, setano] = useState(0);
+    const [Adata, setAdata] = useState(ianswer);
     
+    useEffect(() => {
+      db.collection("4").doc(id).get().then((doc)=>{
+        setAdata(doc.data().answer)})
+      }, [])
+
+    useEffect(() => {
+      db.collection("4").doc(id).get().then((doc)=>{
+      setAdata(doc.data().answer)})
+      }, [id])
+
     function addAnswer(e){
         e.preventDefault();
-        setano(ano+1);
-        db.collection(2).add({
-          Aname:Aname,
-          time:firebase.firestore.FieldValue.serverTimestamp(),
+        db.collection("4").doc(id).update({
           answer:answer,
         });
-        setAname("")
+        db.collection("4").doc(id).get().then((doc)=>{
+          setAdata(doc.data().answer)}
+        )
         setanswer("");
-        console.log("Answer added");
-        
-      }
-    
-      function dispAnswer(){
-        db.collection(2).orderBy("time", "desc").onSnapshot(function(query){
-          setAdata(
-            query.docs.map((element)=>({
-              id:element.id,
-              Aname:element.data().name,
-              answer:element.data().answer,
-              time:element.data().time,
-            }
-          ))
-          );
-          }
-          );
       }
 
 
     return (
-        <div>
-            <div style={{color:"black"}}>
-                <h1>answers</h1>
-                <p>{question}</p>
-                <small>Asked by {name}</small>
-                <small>{time}</small>
-            </div>
-            <form onSubmit={addAnswer}>
-                <TextField 
-                    label="Name">
-                    onChange={
-                    (e)=>setAname(e.target.value)}
-                    value={Aname}
-                </TextField>
-                <br></br>
-                <TextField
-                    id="filled-multiline-static"
-                    label="Enter your answer"
-                    multiline
-                    rows={2}
-                    variant="filled"
-                    onChange={
-                    (e)=>setanswer(e.target.value)}
-                    value={answer}
-                    /><br/>
-                <Button type="submit" variant="contained" color="secondary">Default</Button>
-            </form>
+        <div id="Ques-app">
+          
+           <div id="questions">
+             <div><strong>{question}</strong></div>
+             <small>Asked by {name}</small>
+             
+           </div>
+           <div id="ans">
+            <strong>Answer</strong>:{Adata}
+          </div>
+          <form id="answer-form"onSubmit={addAnswer}>
 
-            <div>
-                
-            </div>
+           <TextField 
+              label="add/change answer"
+              multiline
+              required
+              onChange={
+                (e)=>setanswer(e.target.value)}
+              value={answer} /> 
+              <button type="submit" >Publish</button>  
+          </form>
+          <hr/>
         </div>
     )
 }
